@@ -10,16 +10,11 @@
     </ion-header>
     
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">{{ $route.params.id }}</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
-      <div id="container">
-        <strong class="capitalize">{{ $route.params.id }}</strong>
-        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button @click="takePhoto()">
+          <ion-icon :icon="camera"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     </ion-content>
   </ion-page>
 </template>
@@ -27,6 +22,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { camera, trash, close } from 'ionicons/icons';
+import { usePhotoGallery } from '@/composables/usePhotoGallery';
 
 export default defineComponent({
   name: 'FolderPage',
@@ -38,6 +35,13 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar
+  },
+  setup() {
+    const { takePhoto } = usePhotoGallery();
+
+    return {
+      camera, trash, close, takePhoto
+    }
   }
 });
 </script>
